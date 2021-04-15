@@ -71,7 +71,7 @@ public class Board {
         if it wouldn't be done the discs at the top and left border would look to near to it
         */
         int posY = boardPositionHeight + puffer / 2 + (puffer - discSize) / 2;
-        int posX = boardPositionWidth + puffer/2 + (puffer - discSize) / 2;
+        int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
         int posXCopy = posX;
 
         for (int y = 0; y < boardHeight; y++) {
