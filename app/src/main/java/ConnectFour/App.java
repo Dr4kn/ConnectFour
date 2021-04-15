@@ -3,13 +3,18 @@
  */
 package ConnectFour;
 
-public class App {
-     public String getGreeting() {
-         return "Hello World!";
-     }
+import processing.core.PApplet;
 
+/**
+ * the start of the program
+ */
+public class App extends PApplet {
+    /**
+     * @param args not used
+     * starts the gui
+     */
     public static void main(String[] args) {
-//         System.out.println(new App().getGreeting());
-         Draw.main(new String[0]);
+         Draw draw = new Draw(1080, 720);
+         PApplet.runSketch(new String[]{""}, draw);
     }
 }
