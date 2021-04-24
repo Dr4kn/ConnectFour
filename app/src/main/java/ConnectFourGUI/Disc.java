@@ -1,5 +1,4 @@
-package ConnectFour;
-import processing.core.PApplet;
+package ConnectFourGUI;
 
 // going to probably used to create Discs to put "into" the board
 public class Disc {

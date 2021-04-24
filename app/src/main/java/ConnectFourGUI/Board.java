@@ -1,4 +1,4 @@
-package ConnectFour;
+package ConnectFourGUI;
 import processing.core.PApplet;
 
 /**

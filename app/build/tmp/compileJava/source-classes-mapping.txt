@@ -1,8 +1,8 @@
-ConnectFour/Disc.java
- ConnectFour.Disc
-ConnectFour/Board.java
- ConnectFour.Board
-ConnectFour/Draw.java
- ConnectFour.Draw
-ConnectFour/App.java
- ConnectFour.App
+ConnectFourGUI/Disc.java
+ ConnectFourGUI.Disc
+ConnectFourGUI/App.java
+ ConnectFourGUI.App
+ConnectFourGUI/Draw.java
+ ConnectFourGUI.Draw
+ConnectFourGUI/Board.java
+ ConnectFourGUI.Board
