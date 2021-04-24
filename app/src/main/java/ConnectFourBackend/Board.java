@@ -8,6 +8,16 @@ public class Board {
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
+
+
+        initializeBoard();
+    }
+
+    /**
+     * creates a new matrix with the set width & height
+     * the empty board gets filled with zeros
+     */
+    private void initializeBoard() {
         board = new int[width][height];
 
         for(int i = 0; i < width; i++) {
