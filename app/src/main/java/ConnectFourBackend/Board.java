@@ -27,6 +27,8 @@ public class Board {
 
     }
 
+    //TODO change the array to board[width][height] everywhere
+
     /**
      * creates a new matrix with the set width & height
      * the empty board gets filled with zeros
@@ -40,7 +42,7 @@ public class Board {
             }
         }
     }
-
+    //TODO use as move only the row
     /**
      * @param column starts from 0 place in matrix where the move should occur
      * @param row starts from 0 place in matrix where the move should occur
