@@ -2,15 +2,27 @@ package ConnectFourBackend;
 
 public class Board {
     private int[][] board;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
 
     public Board(int width, int height) {
+        setBoardDimensions(width, height);
+    }
+
+    /**
+     * @param width has to be positive sets width of the Board
+     * @param height has to be positive sets height of the Board
+     *               automatically initializes the new Board
+     */
+    public void setBoardDimensions(int width, int height) {
         this.width = width;
         this.height = height;
 
-
         initializeBoard();
+    }
+
+    public int[][] getBoard() {
+        return board;
     }
 
     /**
@@ -32,7 +44,7 @@ public class Board {
      * @param row starts from 0 place in matrix where the move should occur
      * @param playerNumber either one or two
      */
-    private void move(int column, int row, int playerNumber) {
+    public void move(int column, int row, int playerNumber) {
         if (board[column][row] == 0) {
             board[column][row] = playerNumber;
         }
@@ -41,7 +53,11 @@ public class Board {
         }
     }
 
-    private boolean hasWon(int player) {
+    /**
+     * @param player 1 or 2 only that nubmer is used to check the board
+     * @return true if player has won
+     */
+    public boolean hasWon(int player) {
         final int winLength = 4;
 
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
