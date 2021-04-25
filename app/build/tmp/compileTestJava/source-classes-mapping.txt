@@ -1,2 +1,2 @@
-ConnectFour/AppTest.java
- ConnectFour.AppTest
+ConnectFourBackend/BoardTest.java
+ ConnectFourBackend.BoardTest

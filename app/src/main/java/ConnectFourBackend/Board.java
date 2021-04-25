@@ -15,21 +15,23 @@ public class Board {
      *               automatically initializes the new Board
      */
     public void setBoardDimensions(int width, int height) {
-        this.width = width;
-        this.height = height;
+        if (width >= 4 && height >= 4) {
+            this.width = width;
+            this.height = height;
 
-        initializeBoard();
-    }
+            initializeBoard();
+        }
+        else {
+            throw new IllegalArgumentException("board dimensions have to be at least 4");
+        }
 
-    public int[][] getBoard() {
-        return board;
     }
 
     /**
      * creates a new matrix with the set width & height
      * the empty board gets filled with zeros
      */
-    private void initializeBoard() {
+    public void initializeBoard() {
         board = new int[height][width];
 
         for (int i = 0; i < height; i++) {
@@ -46,7 +48,15 @@ public class Board {
      */
     public void move(int column, int row, int playerNumber) {
         if (board[column][row] == 0) {
-            board[column][row] = playerNumber;
+            for (int i = column; i >= 0; i--) {
+                if (board[i][row] != 0) {
+                    board[i + 1][row] = playerNumber;
+                }
+                else if (i == 0) {
+                    board[i][row] = playerNumber;
+                }
+            }
+
         }
         else {
             throw new IllegalArgumentException("move already made");
@@ -79,6 +89,10 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public int[][] getBoard() {
+        return board;
     }
 }
 
