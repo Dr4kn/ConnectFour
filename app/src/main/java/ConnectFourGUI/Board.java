@@ -15,9 +15,10 @@ public class Board {
     private final int height;
     private final int boardPositionWidth;
     private final int boardPositionHeight;
+    private Disc[][] discs;
 
     /**
-     * @param pApplet the processing instances (you probably have just to use "this")
+     * @param pApplet the processing instances
      * @param resolutionWidth the resolution of the processing window. used to center the board
      * @param resolutionHeight the resolution of the processing window. used to center the board
      */
@@ -26,9 +27,9 @@ public class Board {
     }
 
     /**
-     * @param pApplet the processing instances (you probably have just to use "this")
-     * @param boardWidth the number of columns the board should have (default 7)
-     * @param boardHeight the number of rows the board should have (default 6)
+     * @param pApplet the processing instances
+     * @param boardWidth default: 7 the number of columns the board should have
+     * @param boardHeight default: 6 the number of rows the board should have
      * @param resolutionWidth the resolution of the processing window. used to center the board
      * @param resolutionHeight the resolution of the processing window. used to center the board
      */
@@ -70,18 +71,21 @@ public class Board {
         (puffer - discSize) / 2 is necessary, because those are already applied when two discs are next to each other
         if it wouldn't be done the discs at the top and left border would look to near to it
         */
-        int posY = boardPositionHeight + puffer / 2 + (puffer - discSize) / 2;
+        int posY = boardPositionHeight + height - (int)(discSize / 2) - (puffer - discSize);
         int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
         int posXCopy = posX;
+        int posYCopy = posY;
+        discs = new Disc[boardWidth][boardHeight];
 
-        for (int y = 0; y < boardHeight; y++) {
-            posX = posXCopy;
-            for (int x = 0; x < boardWidth; x++) {
-                pApplet.fill(0, 0, 0);
-                pApplet.circle(posX, posY, discSize);
-                posX += puffer;
+        for (int x = 0; x < boardWidth; x++) {
+            posY = posYCopy;
+            for (int y = 0; y < boardHeight; y++) {
+                Disc disc = new Disc(pApplet, posX, posY, "black");
+                discs[x][y] = disc;
+                discs[x][y].draw();
+                posY -= puffer;
             }
-            posY += puffer;
+            posX += puffer;
         }
     }
 }

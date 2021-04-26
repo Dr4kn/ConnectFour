@@ -13,7 +13,7 @@ public class App extends PApplet {
      * starts the gui
      */
     public static void main(String[] args) {
-         Draw draw = new Draw(1080, 720);
+         Setup draw = new Setup(1080, 720);
          PApplet.runSketch(new String[]{""}, draw);
     }
 }

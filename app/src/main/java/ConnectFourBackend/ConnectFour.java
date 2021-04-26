@@ -1,34 +1,51 @@
 package ConnectFourBackend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConnectFour {
-    private int[][] board;
-    private int[] move = new int[2];
+    private boolean moveMade = false;
+    private int playerTurn = 1;
+    Board board;
+
 
     public ConnectFour(int numberOfPlayers) throws Exception {
         this(numberOfPlayers, 7, 6);
     }
 
     public ConnectFour(int numberOfPlayers, int boardWidth, int boardHeight) throws Exception {
-        this.board = new int[boardWidth][boardHeight];
-
-        switch (numberOfPlayers) {
-            case 0:
-                // create 2 ai playing against each other
-                break;
-            case 1:
-                // create 1 human 1 ai playing against each other
-                break;
-            case 2:
-                // create 2 human playing against each other
-                break;
-            default:
-                throw new Exception("ConnectFourBackend: There can only be 2 players");
-
-        }
+        board = new Board(boardWidth, boardHeight, 4);
+//        switch (numberOfPlayers) {
+//            case 0:
+//                // create 2 ai playing against each other
+//                break;
+//            case 1:
+//                // create 1 human 1 ai playing against each other
+//                break;
+//            case 2:
+//
+//                break;
+//            default:
+//                throw new IllegalArgumentException("There can only be two human players");
+//        }
     }
 
-    User user = new User(1);
-    User player1 = new User(1);
-//    user.turn(board, move);
+    public boolean makeMove(int row) {
+        boolean hasWon = board.move(row, playerTurn);
+        if (playerTurn == 1) {
+            playerTurn = 2;
+        }
+        else {
+          playerTurn = 1;
+        }
+        return hasWon;
+    }
 
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public int[][] getBoard() {
+        return board.getBoard();
+    }
 }

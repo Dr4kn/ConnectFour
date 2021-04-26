@@ -5,7 +5,7 @@ package ConnectFourBackend;
  * also includes the logic
  */
 public class Board {
-    private final int winLength;
+    private int winLength;
     private int[][] board;
     private int width;
     private int height;
@@ -42,7 +42,7 @@ public class Board {
             initializeBoard();
         }
         else {
-            throw new IllegalArgumentException("board dimensions have to be at least 4");
+            throw new IllegalArgumentException("board dimensions have to be at least as large as the win length");
         }
 
     }
@@ -62,10 +62,10 @@ public class Board {
     }
 
     /**
-     * @param row starts from 0 place the column height is determined automatically
+     * @param row starts from 0. the column height is determined automatically
      * @param playerNumber either one or two
      */
-    public void move(int row, int playerNumber) {
+    protected boolean move(int row, int playerNumber) {
         if (board[row][height - 1] == 0) {
             for (int i = height - 1; i >= 0; i--) {
                 if (board[row][i] != 0) {
@@ -74,6 +74,7 @@ public class Board {
                     board[row][0] = playerNumber;
                 }
             }
+            return hasWon(playerNumber);
         }
         else {
             throw new IllegalArgumentException("row full");
@@ -84,7 +85,7 @@ public class Board {
      * @param player 1 or 2 only that number is used to check the board
      * @return true if player has won
      */
-    public boolean hasWon(int player) {
+    private boolean hasWon(int player) {
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
             for (int row = 0; row < width; row++) { // left to right
                 if (board[row][column] != player) { // when the disc isn't from the current player skip it
@@ -109,8 +110,15 @@ public class Board {
     /**
      * @return board as 2d array with [row][height]
      */
-    public int[][] getBoard() {
+    protected int[][] getBoard() {
         return board;
+    }
+
+    /**
+     * @param winLength int the number of discs needed to win
+     */
+    protected void setWinLength(int winLength) {
+        this.winLength = winLength;
     }
 }
 
