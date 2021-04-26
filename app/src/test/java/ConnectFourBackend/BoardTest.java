@@ -39,31 +39,33 @@ public class BoardTest {
     @Test
     @DisplayName("All possible valid moves")
     public void validMoves() {
-        board.move(0, 3, 1);
+        board.move(3, 1);
         int[][] testBoard = board.getBoard();
-        assertEquals(1, testBoard[0][3]);
+        assertEquals(1, testBoard[3][0]);
 
-        board.move(1, 3, 2);
+        board.move(3, 2);
         testBoard = board.getBoard();
-        assertEquals(2, testBoard[1][3]);
+        assertEquals(2, testBoard[3][1]);
 
-        board.move(3, 5, 1);
+        board.move(5, 1);
         testBoard = board.getBoard();
-        assertEquals(1, testBoard[0][5]);
+        assertEquals(1, testBoard[5][0]);
     }
 
     @Test
     @DisplayName("Can not place two discs on top of each other")
     public void illegalMove() {
-        board.move(0, 3, 1);
-        assertThrows(IllegalArgumentException.class, () -> board.move(0,3, 2));
+        for (int i = 0; i < 6; i++) {
+            board.move(3, 1);
+        }
+        assertThrows(IllegalArgumentException.class, () -> board.move(3, 2));
     }
 
     @Test
     @DisplayName("horizontal win")
     public void winHorizontal() {
         for (int i = 0; i < 4; i++) {
-            board.move(0, i, 1);
+            board.move(i, 1);
         }
         assertTrue(board.hasWon(1));
     }

@@ -1,11 +1,17 @@
 package ConnectFourBackend;
 
 public class Board {
+    private final int winLength;
     private int[][] board;
     private int width;
     private int height;
 
     public Board(int width, int height) {
+        this(width, height, 4);
+    }
+
+    public Board(int width, int height, int winLength) {
+        this.winLength = winLength;
         setBoardDimensions(width, height);
     }
 
@@ -15,7 +21,7 @@ public class Board {
      *               automatically initializes the new Board
      */
     public void setBoardDimensions(int width, int height) {
-        if (width >= 4 && height >= 4) {
+        if (width >= winLength && height >= winLength) {
             this.width = width;
             this.height = height;
 
@@ -27,41 +33,36 @@ public class Board {
 
     }
 
-    //TODO change the array to board[width][height] everywhere
-
     /**
      * creates a new matrix with the set width & height
      * the empty board gets filled with zeros
      */
     public void initializeBoard() {
-        board = new int[height][width];
+        board = new int[width][height];
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 board[i][j] = 0;
             }
         }
     }
-    //TODO use as move only the row
+
     /**
-     * @param column starts from 0 place in matrix where the move should occur
      * @param row starts from 0 place in matrix where the move should occur
      * @param playerNumber either one or two
      */
-    public void move(int column, int row, int playerNumber) {
-        if (board[column][row] == 0) {
-            for (int i = column; i >= 0; i--) {
-                if (board[i][row] != 0) {
-                    board[i + 1][row] = playerNumber;
-                }
-                else if (i == 0) {
-                    board[i][row] = playerNumber;
+    public void move(int row, int playerNumber) {
+        if (board[row][height - 1] == 0) {
+            for (int i = height - 1; i >= 0; i--) {
+                if (board[row][i] != 0) {
+                    board[row][i + 1] = playerNumber;
+                } else if (i == 0) {
+                    board[row][0] = playerNumber;
                 }
             }
-
         }
         else {
-            throw new IllegalArgumentException("move already made");
+            throw new IllegalArgumentException("row full");
         }
     }
 
@@ -70,17 +71,15 @@ public class Board {
      * @return true if player has won
      */
     public boolean hasWon(int player) {
-        final int winLength = 4;
-
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
             for (int row = 0; row < width; row++) { // left to right
-                if (board[column][row] != player) { // when the disc isn't from the current player skip it
+                if (board[row][column] != player) { // when the disc isn't from the current player skip it
                     continue;
                 }
 
                 if (row + winLength - 1 < width) { // checks discs to the right
                     for (int i = 1; true; i++) { // true == i < winLength
-                        if (player != board[column][row + i]) {
+                        if (player != board[row + i][column]) {
                             break;
                         }
                         else if (i == winLength - 1) {
