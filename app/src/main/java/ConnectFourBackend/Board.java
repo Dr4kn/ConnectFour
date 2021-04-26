@@ -1,15 +1,29 @@
 package ConnectFourBackend;
 
+/**
+ * ConnectFour playing board
+ * also includes the logic
+ */
 public class Board {
     private final int winLength;
     private int[][] board;
     private int width;
     private int height;
 
+    /**
+     * @param width int generates the width of the array
+     * @param height int generates the width of the array
+     */
     public Board(int width, int height) {
         this(width, height, 4);
     }
 
+    /**
+     * @param width int generates the width of the array
+     * @param height int generates the width of the array
+     * @param winLength 4 = default. the number of discs you need to win.
+     *                  if not needed use the other constructor
+     */
     public Board(int width, int height, int winLength) {
         this.winLength = winLength;
         setBoardDimensions(width, height);
@@ -48,7 +62,7 @@ public class Board {
     }
 
     /**
-     * @param row starts from 0 place in matrix where the move should occur
+     * @param row starts from 0 place the column height is determined automatically
      * @param playerNumber either one or two
      */
     public void move(int row, int playerNumber) {
@@ -67,7 +81,7 @@ public class Board {
     }
 
     /**
-     * @param player 1 or 2 only that nubmer is used to check the board
+     * @param player 1 or 2 only that number is used to check the board
      * @return true if player has won
      */
     public boolean hasWon(int player) {
@@ -92,6 +106,9 @@ public class Board {
         return false;
     }
 
+    /**
+     * @return board as 2d array with [row][height]
+     */
     public int[][] getBoard() {
         return board;
     }
