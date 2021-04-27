@@ -8,7 +8,6 @@ public class Board {
     private final PApplet pApplet;
     private final int boardWidth;
     private final int boardHeight;
-
     private final int discSize = 50;
     private final int puffer = discSize + 10;
     private final int width;
@@ -71,8 +70,8 @@ public class Board {
         (puffer - discSize) / 2 is necessary, because those are already applied when two discs are next to each other
         if it wouldn't be done the discs at the top and left border would look to near to it
         */
-        int posY = boardPositionHeight + height - (int)(discSize / 2) - (puffer - discSize);
         int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
+        int posY = boardPositionHeight + height - (int)(discSize / 2) - (puffer - discSize);
         int posXCopy = posX;
         int posYCopy = posY;
         discs = new Disc[boardWidth][boardHeight];
@@ -87,5 +86,20 @@ public class Board {
             }
             posX += puffer;
         }
+    }
+
+    // TODO connect backend to this to move
+    public void placeDisc(int mouseX, int mouseY) {
+        if (mouseX >= boardPositionWidth && mouseX <= boardPositionWidth + width) {
+            if (mouseY >= boardPositionHeight && mouseY <= boardPositionHeight + height) {
+                int inBounds = (mouseX - boardPositionWidth - ((puffer - discSize) / 2)) / puffer;
+                if (inBounds < boardWidth) {
+                    pApplet.fill(102, 0, 0);
+                    pApplet.circle(mouseX, mouseY, discSize);
+                    pApplet.redraw();
+                }
+            }
+        }
+
     }
 }
