@@ -6,9 +6,9 @@ ConnectFourBackend/ConnectFour.java
  ConnectFourBackend.ConnectFour
 ConnectFourGUI/Disc.java
  ConnectFourGUI.Disc
-ConnectFourGUI/Setup.java
- ConnectFourGUI.Setup
 ConnectFourGUI/App.java
  ConnectFourGUI.App
+ConnectFourGUI/Setup.java
+ ConnectFourGUI.Setup
 ConnectFourGUI/Board.java
  ConnectFourGUI.Board
