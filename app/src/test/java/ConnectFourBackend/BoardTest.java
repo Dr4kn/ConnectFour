@@ -64,10 +64,10 @@ public class BoardTest {
     @Test
     @DisplayName("horizontal win")
     public void winHorizontal() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             board.move(i, 1);
         }
-        assertTrue(board.move(3, 1));
+        assertTrue(board.hasWon(1));
     }
 
 //    @Test

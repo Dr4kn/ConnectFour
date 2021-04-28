@@ -1,4 +1,5 @@
 package ConnectFourGUI;
+import ConnectFourBackend.ConnectFour;
 import processing.core.PApplet;
 
 /**
@@ -15,6 +16,7 @@ public class Board {
     private final int boardPositionWidth;
     private final int boardPositionHeight;
     private Disc[][] discs;
+    private final  ConnectFour connectFour;
 
     /**
      * @param pApplet the processing instances
@@ -41,6 +43,8 @@ public class Board {
         this.height = boardHeight * puffer + (puffer - discSize);
         this.boardPositionWidth = (resolutionWidth - width) / 2;
         this.boardPositionHeight = resolutionHeight - height - 10;
+
+        connectFour = new ConnectFour(2, resolutionWidth, resolutionHeight);
     }
 
     /**
@@ -49,6 +53,7 @@ public class Board {
     public void initialize() {
         createEmptyBoard();
         createDiscSpaces();
+
     }
 
     /**
@@ -72,7 +77,6 @@ public class Board {
         */
         int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
         int posY = boardPositionHeight + height - (int)(discSize / 2) - (puffer - discSize);
-        int posXCopy = posX;
         int posYCopy = posY;
         discs = new Disc[boardWidth][boardHeight];
 
@@ -88,18 +92,45 @@ public class Board {
         }
     }
 
-    // TODO connect backend to this to move
+    /**
+     * @param mouseX processing mouse position X axes
+     * @param mouseY processing mouse position X axes
+     */
     public void placeDisc(int mouseX, int mouseY) {
+        int column = 0;
+
         if (mouseX >= boardPositionWidth && mouseX <= boardPositionWidth + width) {
             if (mouseY >= boardPositionHeight && mouseY <= boardPositionHeight + height) {
                 int inBounds = (mouseX - boardPositionWidth - ((puffer - discSize) / 2)) / puffer;
                 if (inBounds < boardWidth) {
-                    pApplet.fill(102, 0, 0);
-                    pApplet.circle(mouseX, mouseY, discSize);
+                    column = connectFour.makeMove(inBounds);
+                    discs[inBounds][column].setColor(determineColor());
                     pApplet.redraw();
                 }
             }
         }
+    }
 
+    /**
+     * @return String of the color corresponding to the player
+     */
+    private String determineColor() {
+        if (connectFour.getPlayerTurn() == 1) {
+            return "red";
+        }
+        else {
+            return "yellow";
+        }
+    }
+
+    /**
+     * draws the current state of the board
+     */
+    protected void draw() {
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
+                discs[x][y].draw();
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ConnectFour {
     private boolean moveMade = false;
-    private int playerTurn = 1;
+    private int playerTurn = 2;
     Board board;
 
 
@@ -13,7 +13,7 @@ public class ConnectFour {
         this(numberOfPlayers, 7, 6);
     }
 
-    public ConnectFour(int numberOfPlayers, int boardWidth, int boardHeight) throws Exception {
+    public ConnectFour(int numberOfPlayers, int boardWidth, int boardHeight) {
         board = new Board(boardWidth, boardHeight, 4);
 //        switch (numberOfPlayers) {
 //            case 0:
@@ -30,21 +30,37 @@ public class ConnectFour {
 //        }
     }
 
-    public boolean makeMove(int row) {
-        boolean hasWon = board.move(row, playerTurn);
-        if (playerTurn == 1) {
-            playerTurn = 2;
+    /**
+     * @param row 0 to boardSize - 1
+     * @return the column where the move should be made
+     */
+    public int makeMove(int row) {
+        if (playerTurn == 2) {
+            playerTurn = 1;
         }
         else {
-          playerTurn = 1;
+          playerTurn = 2;
         }
-        return hasWon;
+        return board.move(row, playerTurn);
     }
 
+    /**
+     * @return boolean if the player that set the last token has won
+     */
+    public boolean hasWon() {
+        return board.hasWon(playerTurn);
+    }
+
+    /**
+     * @return 1 or 2 the number of the last player that placed a disc
+     */
     public int getPlayerTurn() {
         return playerTurn;
     }
 
+    /**
+     * @return current state of the board
+     */
     public int[][] getBoard() {
         return board.getBoard();
     }

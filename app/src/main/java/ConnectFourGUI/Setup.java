@@ -37,14 +37,14 @@ public class Setup extends PApplet {
         surface.setTitle("Connect Four");
         background(0);
         noLoop();
+        board.initialize();
     }
 
     /**
      * initializes the Board
      */
-    // TODO have the board draw the array of discs in draw
     public void draw() {
-        board.initialize();
+        board.draw();
     }
 
     public void mouseClicked() {

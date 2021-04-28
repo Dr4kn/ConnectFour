@@ -64,28 +64,30 @@ public class Board {
     /**
      * @param row starts from 0. the column height is determined automatically
      * @param playerNumber either one or two
+     * @return the column position where the disc should be placed
      */
-    protected boolean move(int row, int playerNumber) {
+    protected int move(int row, int playerNumber) {
         if (board[row][height - 1] == 0) {
             for (int i = height - 1; i >= 0; i--) {
                 if (board[row][i] != 0) {
                     board[row][i + 1] = playerNumber;
+                    return (i + 1);
                 } else if (i == 0) {
                     board[row][0] = playerNumber;
                 }
             }
-            return hasWon(playerNumber);
         }
         else {
             throw new IllegalArgumentException("row full");
         }
+        return (0);
     }
 
     /**
      * @param player 1 or 2 only that number is used to check the board
      * @return true if player has won
      */
-    private boolean hasWon(int player) {
+    protected boolean hasWon(int player) {
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
             for (int row = 0; row < width; row++) { // left to right
                 if (board[row][column] != player) { // when the disc isn't from the current player skip it
