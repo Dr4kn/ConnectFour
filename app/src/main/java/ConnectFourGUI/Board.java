@@ -51,9 +51,9 @@ public class Board {
      * initializes the board with empty looking spaces for discs
      */
     public void initialize() {
+        pApplet.background(0);
         createEmptyBoard();
         createDiscSpaces();
-
     }
 
     /**
@@ -132,5 +132,18 @@ public class Board {
                 discs[x][y].draw();
             }
         }
+    }
+
+    protected int getPlayerTurn() {
+        return connectFour.getPlayerTurn();
+    }
+
+    protected boolean hasWon() {
+        return connectFour.hasWon();
+    }
+
+    protected void restart() {
+        connectFour.restart();
+        initialize();
     }
 }

@@ -33,18 +33,16 @@ public class Disc {
         switch (color) {
             case "red" -> {
                 pApplet.fill(102, 0, 0);
-                pApplet.circle(posX, posY, discSize);
             }
             case "yellow" -> {
                 pApplet.fill(153, 153, 0);
-                pApplet.circle(posX, posY, discSize);
             }
             case "black" -> {
                 pApplet.fill(0, 0, 0);
-                pApplet.circle(posX, posY, discSize);
             }
             default -> throw new IllegalArgumentException("color is not allowed");
         }
+        pApplet.circle(posX, posY, discSize);
     }
 
     /**

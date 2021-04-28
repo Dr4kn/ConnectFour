@@ -104,6 +104,9 @@ public class Board {
                         }
                     }
                 }
+                if (column + winLength - 1 < height) {
+
+                }
             }
         }
         return false;

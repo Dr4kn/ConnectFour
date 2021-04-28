@@ -64,4 +64,8 @@ public class ConnectFour {
     public int[][] getBoard() {
         return board.getBoard();
     }
+
+    public void restart() {
+        board.initializeBoard();
+    }
 }
