@@ -94,7 +94,7 @@ public class Board {
                     continue;
                 }
 
-                if (row + winLength - 1 < width) { // checks discs to the right
+                if (row + winLength - 1 < width) { // checks discs horizontal
                     for (int i = 1; true; i++) { // true == i < winLength
                         if (player != board[row + i][column]) {
                             break;
@@ -105,7 +105,35 @@ public class Board {
                     }
                 }
                 if (column + winLength - 1 < height) {
-
+                    for (int i = 1; i < winLength; i++) { // checks discs vertical
+                        if (player != board[row][column + i]) {
+                            break;
+                        }
+                        else if (i == winLength - 1) {
+                            return true;
+                        }
+                    }
+                    if (row - (winLength - 1) >= 0) { // checks discs diagonal left
+                        for (int i = 1; i < winLength; i++) {
+                            if (player != board[row - i][column + i]) {
+                                break;
+                            }
+                            else if (i == winLength - 1) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (row + (winLength - 1) < width) { // checks discs diagonal right
+                        for (int i = 1; i < winLength; i++) {
+                            if (player != board[row + i][column + i]) {
+                                System.out.println(i);
+                                break;
+                            }
+                            else if (i == winLength - 1) {
+                                return true;
+                            }
+                        }
+                    }
                 }
             }
         }
