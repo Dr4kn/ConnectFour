@@ -1,71 +1,166 @@
 package ConnectFourBackend;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * ConnectFour playing board
+ * also includes the logic
+ */
 public class ConnectFour {
-    private boolean moveMade = false;
-    private int playerTurn = 2;
-    Board board;
+    private int winLength, width, height;
+    private int[][] board;
+    private int playerNumber = 1;
+    private boolean alreadyWon = false;
 
-
-    public ConnectFour(int numberOfPlayers) throws Exception {
-        this(numberOfPlayers, 7, 6);
-    }
-
-    public ConnectFour(int numberOfPlayers, int boardWidth, int boardHeight) {
-        board = new Board(boardWidth, boardHeight, 4);
-//        switch (numberOfPlayers) {
-//            case 0:
-//                // create 2 ai playing against each other
-//                break;
-//            case 1:
-//                // create 1 human 1 ai playing against each other
-//                break;
-//            case 2:
-//
-//                break;
-//            default:
-//                throw new IllegalArgumentException("There can only be two human players");
-//        }
+    /**
+     * @param width int generates the width of the array
+     * @param height int generates the width of the array
+     */
+    public ConnectFour(int width, int height) {
+        this(width, height, 4);
     }
 
     /**
-     * @param row 0 to boardSize - 1
-     * @return the column where the move should be made
+     * @param width int generates the width of the array
+     * @param height int generates the width of the array
+     * @param winLength 4 = default. the number of discs you need to win.
+     *                  if not needed use the other constructor
      */
-    public int makeMove(int row) {
-        if (playerTurn == 2) {
-            playerTurn = 1;
+    public ConnectFour(int width, int height, int winLength) {
+        this.winLength = winLength;
+        setBoardDimensions(width, height);
+    }
+
+    /**
+     * @param width has to be positive sets width of the Board
+     * @param height has to be positive sets height of the Board
+     *               automatically initializes the new Board
+     */
+    public void setBoardDimensions(int width, int height) {
+        if (width >= winLength && height >= winLength) {
+            this.width = width;
+            this.height = height;
+
+            initializeBoard();
         }
         else {
-          playerTurn = 2;
+            throw new IllegalArgumentException("board dimensions have to be at least as large as the win length");
         }
-        return board.move(row, playerTurn);
+
     }
 
     /**
-     * @return boolean if the player that set the last token has won
+     * creates a new matrix with the set width & height
+     * the empty board gets filled with zeros
+     */
+    public void initializeBoard() {
+        board = new int[width][height];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                board[i][j] = 0;
+            }
+        }
+    }
+
+    /**
+     * @param row starts from 0. the column height is determined automatically
+     * @return the column position where the disc should be placed
+     */
+    public int move(int row) {
+        if (board[row][height - 1] == 0 && !alreadyWon) {
+            if (playerNumber == 1) {
+                playerNumber = 2;
+            } else {
+                playerNumber = 1;
+            }
+            for (int i = height - 1; i >= 0; i--) {
+                if (board[row][i] != 0) {
+                    board[row][i + 1] = getPlayerTurn();
+                    return (i + 1);
+                } else if (i == 0) {
+                    board[row][0] = getPlayerTurn();
+                }
+            }
+        }
+        else {
+            throw new IllegalArgumentException("row full");
+        }
+        return (0);
+    }
+
+    /**
+     * @return true if player has won
      */
     public boolean hasWon() {
-        return board.hasWon(playerTurn);
+        int player = getPlayerTurn();
+        alreadyWon = true;
+        for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
+            for (int row = 0; row < width; row++) { // left to right
+                if (board[row][column] != player) { // when the disc isn't from the current player skip it
+                    continue;
+                }
+
+                if (row + winLength - 1 < width) { // checks discs horizontal
+                    for (int i = 1; true; i++) { // true == i < winLength
+                        if (player != board[row + i][column]) {
+                            break;
+                        } else if (i == winLength - 1) {
+                            return true;
+                        }
+                    }
+                }
+                if (column + winLength - 1 < height) {
+                    for (int i = 1; i < winLength; i++) { // checks discs vertical
+                        if (player != board[row][column + i]) {
+                            break;
+                        } else if (i == winLength - 1) {
+                            return true;
+                        }
+                    }
+                    if (row - (winLength - 1) >= 0) { // checks discs diagonal left
+                        for (int i = 1; i < winLength; i++) {
+                            if (player != board[row - i][column + i]) {
+                                break;
+                            } else if (i == winLength - 1) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (row + (winLength - 1) < width) { // checks discs diagonal right
+                        for (int i = 1; i < winLength; i++) {
+                            if (player != board[row + i][column + i]) {
+                                break;
+                            } else if (i == winLength - 1) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        alreadyWon = false;
+        return false;
     }
 
-    /**
-     * @return 1 or 2 the number of the last player that placed a disc
-     */
     public int getPlayerTurn() {
-        return playerTurn;
+        return switch (playerNumber) {
+            case 1 -> 2;
+            case 2 -> 1;
+            default -> 0;
+        };
     }
 
     /**
-     * @return current state of the board
+     * @return board as 2d array with [row][height]
      */
-    public int[][] getBoard() {
-        return board.getBoard();
+    protected int[][] getBoard() {
+        return board;
     }
 
-    public void restart() {
-        board.initializeBoard();
+    /**
+     * @param winLength int the number of discs needed to win
+     */
+    public void setWinLength(int winLength) {
+        this.winLength = winLength;
     }
 }
+

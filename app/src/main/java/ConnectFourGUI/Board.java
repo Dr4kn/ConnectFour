@@ -7,16 +7,11 @@ import processing.core.PApplet;
  */
 public class Board {
     private final PApplet pApplet;
-    private final int boardWidth;
-    private final int boardHeight;
+    private final int boardWidth, boardHeight, width, height, boardPositionWidth, boardPositionHeight;
     private final int discSize = 50;
     private final int puffer = discSize + 10;
-    private final int width;
-    private final int height;
-    private final int boardPositionWidth;
-    private final int boardPositionHeight;
     private Disc[][] discs;
-    private final  ConnectFour connectFour;
+    private final ConnectFour connectFour;
 
     /**
      * @param pApplet the processing instances
@@ -44,7 +39,7 @@ public class Board {
         this.boardPositionWidth = (resolutionWidth - width) / 2;
         this.boardPositionHeight = resolutionHeight - height - 10;
 
-        connectFour = new ConnectFour(2, resolutionWidth, resolutionHeight);
+        connectFour = new ConnectFour(resolutionWidth, resolutionHeight);
     }
 
     /**
@@ -76,14 +71,14 @@ public class Board {
         if it wouldn't be done the discs at the top and left border would look to near to it
         */
         int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
-        int posY = boardPositionHeight + height - (int)(discSize / 2) - (puffer - discSize);
+        int posY = boardPositionHeight + height - (discSize / 2) - (puffer - discSize);
         int posYCopy = posY;
         discs = new Disc[boardWidth][boardHeight];
 
         for (int x = 0; x < boardWidth; x++) {
             posY = posYCopy;
             for (int y = 0; y < boardHeight; y++) {
-                Disc disc = new Disc(pApplet, posX, posY, "black");
+                Disc disc = new Disc(pApplet, posX, posY, Disc.Color.BLACK);
                 discs[x][y] = disc;
                 discs[x][y].draw();
                 posY -= puffer;
@@ -97,13 +92,11 @@ public class Board {
      * @param mouseY processing mouse position X axes
      */
     public void placeDisc(int mouseX, int mouseY) {
-        int column = 0;
-
         if (mouseX >= boardPositionWidth && mouseX <= boardPositionWidth + width) {
             if (mouseY >= boardPositionHeight && mouseY <= boardPositionHeight + height) {
                 int inBounds = (mouseX - boardPositionWidth - ((puffer - discSize) / 2)) / puffer;
                 if (inBounds < boardWidth) {
-                    column = connectFour.makeMove(inBounds);
+                    final int column = connectFour.move(inBounds);
                     discs[inBounds][column].setColor(determineColor());
                     pApplet.redraw();
                 }
@@ -114,12 +107,12 @@ public class Board {
     /**
      * @return String of the color corresponding to the player
      */
-    private String determineColor() {
+    private Disc.Color determineColor() {
         if (connectFour.getPlayerTurn() == 1) {
-            return "red";
+            return Disc.Color.RED;
         }
         else {
-            return "yellow";
+            return Disc.Color.YELLOW;
         }
     }
 
@@ -143,7 +136,11 @@ public class Board {
     }
 
     protected void restart() {
-        connectFour.restart();
+        connectFour.initializeBoard();
         initialize();
+    }
+
+    protected void setWinLength(int winLength) {
+        connectFour.setWinLength(winLength);
     }
 }

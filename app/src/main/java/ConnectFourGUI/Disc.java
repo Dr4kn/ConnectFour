@@ -7,11 +7,10 @@ import processing.core.PApplet;
  */
 public class Disc {
     private final PApplet pApplet;
+    private final int posX, posY;
     private final int discSize = 50;
     private final int puffer = discSize + 10;
-    private String color;
-    private final int posX;
-    private final int posY;
+    private Color color;
 
     /**
      * @param pApplet processing
@@ -19,7 +18,7 @@ public class Disc {
      * @param posY position in the processing grid it should be placed
      * @param color red, yellow, or black
      */
-    protected Disc(PApplet pApplet, int posX, int posY, String color) {
+    protected Disc(PApplet pApplet, int posX, int posY, Color color) {
         this.pApplet = pApplet;
         this.posX = posX;
         this.posY = posY;
@@ -31,13 +30,13 @@ public class Disc {
      */
     protected void draw() {
         switch (color) {
-            case "red" -> {
+            case RED -> {
                 pApplet.fill(102, 0, 0);
             }
-            case "yellow" -> {
+            case YELLOW -> {
                 pApplet.fill(153, 153, 0);
             }
-            case "black" -> {
+            case BLACK -> {
                 pApplet.fill(0, 0, 0);
             }
             default -> throw new IllegalArgumentException("color is not allowed");
@@ -45,10 +44,16 @@ public class Disc {
         pApplet.circle(posX, posY, discSize);
     }
 
+    enum Color {
+        RED,
+        YELLOW,
+        BLACK
+    }
+
     /**
      * @param color red, yellow or black (the color the discs should have)
      */
-    protected void setColor(String color) {
+    protected void setColor(Color color) {
         this.color = color;
     }
 }

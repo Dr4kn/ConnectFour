@@ -1,14 +1,12 @@
-ConnectFourGUI/Disc.java
- ConnectFourGUI.Disc
-ConnectFourGUI/Board.java
- ConnectFourGUI.Board
-ConnectFourBackend/Ai.java
- ConnectFourBackend.Ai
-ConnectFourGUI/Setup.java
- ConnectFourGUI.Setup
 ConnectFourGUI/App.java
  ConnectFourGUI.App
-ConnectFourBackend/Board.java
- ConnectFourBackend.Board
+ConnectFourGUI/Setup.java
+ ConnectFourGUI.Setup
+ConnectFourGUI/Disc.java
+ ConnectFourGUI.Disc
+ ConnectFourGUI.Disc$1
+ ConnectFourGUI.Disc$Color
 ConnectFourBackend/ConnectFour.java
  ConnectFourBackend.ConnectFour
+ConnectFourGUI/Board.java
+ ConnectFourGUI.Board

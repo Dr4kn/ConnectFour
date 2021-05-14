@@ -33,3 +33,7 @@ application {
     // Define the main class for the application.
     mainClass = 'ConnectFourGUI.App'
 }
+
+//test {
+//    useJUnitPlatform()
+//}

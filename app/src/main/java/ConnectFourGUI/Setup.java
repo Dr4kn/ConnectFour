@@ -4,7 +4,7 @@ import processing.core.PApplet;
 public class Setup extends PApplet {
     private final int resolutionWidth;
     private final int resolutionHeight;
-    private final Board board;
+    private Board board;
     private boolean clearBackground = false;
     private boolean nextGame = false;
 
@@ -22,7 +22,6 @@ public class Setup extends PApplet {
     public Setup(int resolutionWidth, int resolutionHeight) {
         this.resolutionWidth = resolutionWidth;
         this.resolutionHeight = resolutionHeight;
-        this.board = new Board(this, resolutionWidth, resolutionHeight);
     }
 
     /**
@@ -38,6 +37,8 @@ public class Setup extends PApplet {
      */
     public void setup() {
         surface.setTitle("Connect Four");
+        board = new Board(this, 7, 6, resolutionWidth, resolutionHeight);
+
         background(0);
         noLoop();
         board.initialize();
