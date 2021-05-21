@@ -45,7 +45,7 @@ public class Board {
     /**
      * initializes the board with empty looking spaces for discs
      */
-    public void initialize() {
+    public void initializeBoard() {
         pApplet.background(0);
         createEmptyBoard();
         createDiscSpaces();
@@ -137,7 +137,7 @@ public class Board {
 
     protected void restart() {
         connectFour.initializeBoard();
-        initialize();
+        initializeBoard();
     }
 
     protected void setWinLength(int winLength) {

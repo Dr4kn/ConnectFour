@@ -41,7 +41,7 @@ public class Setup extends PApplet {
 
         background(0);
         noLoop();
-        board.initialize();
+        board.initializeBoard();
     }
 
     /**

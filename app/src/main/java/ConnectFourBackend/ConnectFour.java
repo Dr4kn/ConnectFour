@@ -4,7 +4,7 @@ package ConnectFourBackend;
  * ConnectFour playing board
  * also includes the logic
  */
-public class ConnectFour {
+public class ConnectFour implements ConnectFourInterface{
     private int winLength, width, height;
     private int[][] board;
     private int playerNumber = 1;
