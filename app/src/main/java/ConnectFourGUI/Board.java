@@ -15,15 +15,6 @@ public class Board {
 
     /**
      * @param pApplet the processing instances
-     * @param resolutionWidth the resolution of the processing window. used to center the board
-     * @param resolutionHeight the resolution of the processing window. used to center the board
-     */
-    public Board(PApplet pApplet, int resolutionWidth, int resolutionHeight) {
-        this(pApplet, 7, 6, resolutionWidth, resolutionHeight);
-    }
-
-    /**
-     * @param pApplet the processing instances
      * @param boardWidth default: 7 the number of columns the board should have
      * @param boardHeight default: 6 the number of rows the board should have
      * @param resolutionWidth the resolution of the processing window. used to center the board
@@ -105,7 +96,7 @@ public class Board {
     }
 
     /**
-     * @return String of the color corresponding to the player
+     * @return Enum of the color corresponding to the player
      */
     private Disc.Color determineColor() {
         if (connectFour.getPlayerTurn() == 1) {

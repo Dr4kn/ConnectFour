@@ -65,7 +65,7 @@ public class ConnectFourTest {
 //    @DisplayName("horizontal win")
 //    public void winHorizontal() {
 //        for (int i = 0; i < 4; i++) {
-//            board.move(i, 1);
+//            board.move(i);
 //        }
 //        assertTrue(board.hasWon(1));
 //    }

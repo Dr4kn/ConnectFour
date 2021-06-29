@@ -9,13 +9,6 @@ public class Setup extends PApplet {
     private boolean nextGame = false;
 
     /**
-     * sets the revolution for the processing windows with the default values (1080 * 720)
-     */
-    public Setup() {
-        this(1080, 720);
-    }
-
-    /**
      * @param resolutionWidth the resolution the processing windows should have (default 1080)
      * @param resolutionHeight the resolution the processing windows should have (default 720)
      */

@@ -5,7 +5,7 @@ package ConnectFourBackend;
  * also includes the logic
  */
 public class ConnectFour implements ConnectFourInterface{
-    private int winLength, width, height;
+    private int winLength, width, height, lastMoveRow, lastMoveColumn;
     private int[][] board;
     private int playerNumber = 1;
     private boolean alreadyWon = false;
@@ -75,6 +75,7 @@ public class ConnectFour implements ConnectFourInterface{
             for (int i = height - 1; i >= 0; i--) {
                 if (board[row][i] != 0) {
                     board[row][i + 1] = getPlayerTurn();
+                    setLastMove(row, i + 1);
                     return (i + 1);
                 } else if (i == 0) {
                     board[row][0] = getPlayerTurn();
@@ -84,6 +85,7 @@ public class ConnectFour implements ConnectFourInterface{
         else {
             throw new IllegalArgumentException("row full");
         }
+        setLastMove(row, 0);
         return (0);
     }
 
@@ -93,6 +95,9 @@ public class ConnectFour implements ConnectFourInterface{
     public boolean hasWon() {
         int player = getPlayerTurn();
         alreadyWon = true;
+
+        // TODO remove both for loops and only check the last move
+        // has to check all around the last placed one
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
             for (int row = 0; row < width; row++) { // left to right
                 if (board[row][column] != player) { // when the disc isn't from the current player skip it
@@ -104,6 +109,8 @@ public class ConnectFour implements ConnectFourInterface{
                         if (player != board[row + i][column]) {
                             break;
                         } else if (i == winLength - 1) {
+                            System.out.println("row: " + (row + i));
+                            System.out.println("column: " + column);
                             return true;
                         }
                     }
@@ -139,6 +146,11 @@ public class ConnectFour implements ConnectFourInterface{
         }
         alreadyWon = false;
         return false;
+    }
+
+    private void setLastMove(int lastMoveRow, int lastMoveColumn) {
+        this.lastMoveRow = lastMoveRow;
+        this.lastMoveColumn = lastMoveColumn;
     }
 
     public int getPlayerTurn() {
