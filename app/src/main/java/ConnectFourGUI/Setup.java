@@ -33,7 +33,7 @@ public class Setup extends PApplet {
         board = new Board(this, 7, 6, resolutionWidth, resolutionHeight);
 
         background(0);
-        noLoop();
+//        noLoop();
         board.initializeBoard();
     }
 
@@ -41,7 +41,7 @@ public class Setup extends PApplet {
      * initializes the Board
      */
     public void draw() {
-        board.draw();
+//        board.draw();
         if (board.hasWon()) {
             displayWinner();
             nextGame();
@@ -84,7 +84,6 @@ public class Setup extends PApplet {
             if (key == ENTER || key == RETURN) {
                 nextGame = false;
                 clearBackground = true;
-                redraw();
             }
         }
     }

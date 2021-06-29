@@ -9,8 +9,8 @@ import processing.core.PApplet;
  */
 public class App extends PApplet {
     /**
-     * @param args not used
      * starts the gui
+     * @param args not used
      */
     public static void main(String[] args) {
          Setup draw = new Setup(1080, 720);

@@ -8,9 +8,7 @@ import processing.core.PApplet;
 public class Disc {
     private final PApplet pApplet;
     private final int posX, posY;
-    private final int discSize = 50;
-    private final int puffer = discSize + 10;
-    private Color color;
+    private final Color color;
 
     /**
      * @param pApplet processing
@@ -41,19 +39,15 @@ public class Disc {
             }
             default -> throw new IllegalArgumentException("color is not allowed");
         }
-        pApplet.circle(posX, posY, discSize);
-    }
-
-    enum Color {
-        RED,
-        YELLOW,
-        BLACK
+        pApplet.circle(posX, posY, 50);
     }
 
     /**
-     * @param color red, yellow or black (the color the discs should have)
+     * used to set the color the disc should have
      */
-    protected void setColor(Color color) {
-        this.color = color;
+    protected enum Color {
+        RED,
+        YELLOW,
+        BLACK
     }
 }
