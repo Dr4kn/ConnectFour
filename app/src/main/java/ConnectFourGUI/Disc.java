@@ -28,15 +28,9 @@ public class Disc {
      */
     protected void draw() {
         switch (color) {
-            case RED -> {
-                pApplet.fill(102, 0, 0);
-            }
-            case YELLOW -> {
-                pApplet.fill(153, 153, 0);
-            }
-            case BLACK -> {
-                pApplet.fill(0, 0, 0);
-            }
+            case RED -> pApplet.fill(102, 0, 0);
+            case YELLOW -> pApplet.fill(153, 153, 0);
+            case BLACK -> pApplet.fill(0, 0, 0);
             default -> throw new IllegalArgumentException("color is not allowed");
         }
         pApplet.circle(posX, posY, 50);
