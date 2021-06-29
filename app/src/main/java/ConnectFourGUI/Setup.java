@@ -5,7 +5,6 @@ public class Setup extends PApplet {
     private final int resolutionWidth;
     private final int resolutionHeight;
     private Board board;
-    private boolean clearBackground = false;
     private boolean nextGame = false;
 
     /**
@@ -21,7 +20,6 @@ public class Setup extends PApplet {
      * sets the resolution of the processing window
      */
     public void settings() {
-        noSmooth();
         size(resolutionWidth, resolutionHeight);
     }
 
@@ -33,27 +31,22 @@ public class Setup extends PApplet {
         board = new Board(this, 7, 6, resolutionWidth, resolutionHeight);
 
         background(0);
-//        noLoop();
         board.initializeBoard();
     }
 
     /**
-     * initializes the Board
+     * draw method from processing that gets executed every frame
      */
     public void draw() {
-//        board.draw();
         if (board.hasWon()) {
             displayWinner();
             nextGame();
         }
-        if (clearBackground) {
-            clearBackground = false;
-            background(0);
-            board.restart();
-        }
-
     }
 
+    /**
+     * displays text and color of the player who won
+     */
     private void displayWinner() {
         textSize(50);
         if (board.getPlayerTurn() == 1) {
@@ -62,16 +55,19 @@ public class Setup extends PApplet {
             fill(153, 153, 0);
         }
         textAlign(CENTER);
-        text(String.format("Player %d has won", board.getPlayerTurn()), (int)(resolutionWidth / 2), 80);
+        text(String.format("Player %d has won", board.getPlayerTurn()), (resolutionWidth >> 1), 80);
     }
 
+    /**
+     * prints a dialog to play again and turn on a variable to start the game
+     */
     private void nextGame() {
         fill(0, 50, 255);
         textSize(35);
         textAlign(CENTER);
-        text("Do you want to play again?", (int)(resolutionWidth / 2), 140);
+        text("Do you want to play again?", (resolutionWidth >> 1), 140);
         textSize(25);
-        text("(press enter)", (int)(resolutionWidth / 2), 180);
+        text("(press enter)", (resolutionWidth >> 1), 180);
         nextGame = true;
     }
 
@@ -83,7 +79,8 @@ public class Setup extends PApplet {
         if (nextGame) {
             if (key == ENTER || key == RETURN) {
                 nextGame = false;
-                clearBackground = true;
+                background(0);
+                board.restart();
             }
         }
     }

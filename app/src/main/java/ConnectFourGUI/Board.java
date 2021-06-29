@@ -19,7 +19,7 @@ public class Board {
      * @param resolutionWidth the resolution of the processing window. used to center the board
      * @param resolutionHeight the resolution of the processing window. used to center the board
      */
-    public Board(PApplet pApplet, int boardRows, int boardColumns, int resolutionWidth, int resolutionHeight) {
+    protected Board(PApplet pApplet, int boardRows, int boardColumns, int resolutionWidth, int resolutionHeight) {
         this.pApplet = pApplet;
         this.boardRows = boardRows;
         this.boardColumns = boardColumns;
@@ -35,7 +35,7 @@ public class Board {
     /**
      * initializes the board with empty looking spaces for discs
      */
-    public void initializeBoard() {
+    protected void initializeBoard() {
         pApplet.background(0);
         pApplet.fill(0, 50, 255);
         pApplet.rect(boardPositionWidth, boardPositionHeight, boardWidth, boardHeight, 7);
@@ -50,7 +50,7 @@ public class Board {
      * @param mouseX processing mouse position X axes
      * @param mouseY processing mouse position X axes
      */
-    public void placeDisc(int mouseX, int mouseY) {
+    protected void placeDisc(int mouseX, int mouseY) {
         // determines if the mouse is inside the board
         if (mouseX >= boardPositionWidth && mouseX <= boardPositionWidth + boardWidth) {
             if (mouseY >= boardPositionHeight && mouseY <= boardPositionHeight + boardHeight) {
@@ -64,7 +64,7 @@ public class Board {
         }
     }
 
-    private void colorDiscs(int row, int column, Disc.Color color) {
+    protected void colorDiscs(int row, int column, Disc.Color color) {
         /*
         sets the empty discs at the top left corner of the board with equal distance
         (puffer - discSize) / 2 is necessary, because those are already applied when two discs are next to each other

@@ -5,7 +5,7 @@ package ConnectFourBackend;
  * also includes the logic
  */
 public class ConnectFour implements ConnectFourInterface{
-    private int winLength, width, height, lastMoveRow, lastMoveColumn;
+    private int winLength, width, height;
     private int[][] board;
     private int playerNumber = 1;
     private boolean alreadyWon = false;
@@ -75,7 +75,6 @@ public class ConnectFour implements ConnectFourInterface{
             for (int i = height - 1; i >= 0; i--) {
                 if (board[row][i] != 0) {
                     board[row][i + 1] = getPlayerTurn();
-                    setLastMove(row, i + 1);
                     return (i + 1);
                 } else if (i == 0) {
                     board[row][0] = getPlayerTurn();
@@ -85,7 +84,6 @@ public class ConnectFour implements ConnectFourInterface{
         else {
             throw new IllegalArgumentException("row full");
         }
-        setLastMove(row, 0);
         return (0);
     }
 
@@ -109,8 +107,6 @@ public class ConnectFour implements ConnectFourInterface{
                         if (player != board[row + i][column]) {
                             break;
                         } else if (i == winLength - 1) {
-                            System.out.println("row: " + (row + i));
-                            System.out.println("column: " + column);
                             return true;
                         }
                     }
@@ -146,11 +142,6 @@ public class ConnectFour implements ConnectFourInterface{
         }
         alreadyWon = false;
         return false;
-    }
-
-    private void setLastMove(int lastMoveRow, int lastMoveColumn) {
-        this.lastMoveRow = lastMoveRow;
-        this.lastMoveColumn = lastMoveColumn;
     }
 
     public int getPlayerTurn() {
