@@ -56,6 +56,7 @@ public class Board {
             if (mouseY >= boardPositionHeight && mouseY <= boardPositionHeight + boardHeight) {
                 // determines the column if it the mouse didn't click over the board
                 int inBounds = (mouseX - boardPositionWidth - ((puffer - discSize) / 2)) / puffer;
+
                 if (inBounds < boardRows) {
                     final int column = connectFour.move(inBounds);
                     colorDiscs(inBounds, column, determineColor());
@@ -85,8 +86,7 @@ public class Board {
     private Disc.Color determineColor() {
         if (connectFour.getPlayerTurn() == 1) {
             return Disc.Color.RED;
-        }
-        else {
+        } else {
             return Disc.Color.YELLOW;
         }
     }

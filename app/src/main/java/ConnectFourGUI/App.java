@@ -8,6 +8,7 @@ import processing.core.PApplet;
  * the start of the program
  */
 public class App extends PApplet {
+
     /**
      * starts the gui
      * @param args not used

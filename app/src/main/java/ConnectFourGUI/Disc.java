@@ -5,23 +5,14 @@ import processing.core.PApplet;
 /**
  * creates a single discs to be put into the board
  */
-public class Disc {
-    private final PApplet pApplet;
-    private final int posX, posY;
-    private final Color color;
-
+public record Disc(PApplet pApplet, int posX, int posY, ConnectFourGUI.Disc.Color color) {
     /**
      * @param pApplet processing
-     * @param posX position in the processing grid it should be placed
-     * @param posY position in the processing grid it should be placed
-     * @param color red, yellow, or black
+     * @param posX    position in the processing grid it should be placed
+     * @param posY    position in the processing grid it should be placed
+     * @param color   red, yellow, or black
      */
-    protected Disc(PApplet pApplet, int posX, int posY, Color color) {
-        this.pApplet = pApplet;
-        this.posX = posX;
-        this.posY = posY;
-        this.color = color;
-    }
+    public Disc {}
 
     /**
      * gives the current discs its color

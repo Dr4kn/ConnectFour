@@ -72,6 +72,7 @@ public class ConnectFour implements ConnectFourInterface{
             } else {
                 playerNumber = 1;
             }
+
             for (int i = height - 1; i >= 0; i--) {
                 if (board[row][i] != 0) {
                     board[row][i + 1] = getPlayerTurn();
@@ -80,8 +81,7 @@ public class ConnectFour implements ConnectFourInterface{
                     board[row][0] = getPlayerTurn();
                 }
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("row full");
         }
         return (0);
@@ -111,6 +111,7 @@ public class ConnectFour implements ConnectFourInterface{
                         }
                     }
                 }
+
                 if (column + winLength - 1 < height) {
                     for (int i = 1; i < winLength; i++) { // checks discs vertical
                         if (player != board[row][column + i]) {
@@ -119,6 +120,7 @@ public class ConnectFour implements ConnectFourInterface{
                             return true;
                         }
                     }
+
                     if (row - (winLength - 1) >= 0) { // checks discs diagonal left
                         for (int i = 1; i < winLength; i++) {
                             if (player != board[row - i][column + i]) {
@@ -128,6 +130,7 @@ public class ConnectFour implements ConnectFourInterface{
                             }
                         }
                     }
+
                     if (row + (winLength - 1) < width) { // checks discs diagonal right
                         for (int i = 1; i < winLength; i++) {
                             if (player != board[row + i][column + i]) {
