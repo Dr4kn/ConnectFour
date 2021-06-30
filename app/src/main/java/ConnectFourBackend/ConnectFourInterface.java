@@ -3,13 +3,11 @@ package ConnectFourBackend;
 public interface ConnectFourInterface {
     void setBoardDimensions(int width, int height);
 
-    void initializeBoard();
-
     int move(int row);
 
     boolean hasWon();
 
-    int getPlayerTurn();
+    Board.Player getCurrentPlayer();
 
     void setWinLength(int winLength);
 }

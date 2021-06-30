@@ -1,14 +1,18 @@
-ConnectFourGUI/App.java
- ConnectFourGUI.App
+ConnectFourGUI/Board.java
+ ConnectFourGUI.Board
 ConnectFourBackend/ConnectFourInterface.java
  ConnectFourBackend.ConnectFourInterface
-ConnectFourGUI/Setup.java
- ConnectFourGUI.Setup
-ConnectFourBackend/ConnectFour.java
- ConnectFourBackend.ConnectFour
+ConnectFourBackend/Board.java
+ ConnectFourBackend.Board
+ ConnectFourBackend.Board$Player
 ConnectFourGUI/Disc.java
  ConnectFourGUI.Disc
  ConnectFourGUI.Disc$1
  ConnectFourGUI.Disc$Color
-ConnectFourGUI/Board.java
- ConnectFourGUI.Board
+ConnectFourBackend/ConnectFour.java
+ ConnectFourBackend.ConnectFour
+ ConnectFourBackend.ConnectFour$1
+ConnectFourGUI/Setup.java
+ ConnectFourGUI.Setup
+ConnectFourGUI/App.java
+ ConnectFourGUI.App

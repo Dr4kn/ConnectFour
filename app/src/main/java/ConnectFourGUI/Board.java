@@ -29,7 +29,7 @@ public class Board {
         this.boardPositionWidth = (resolutionWidth - boardWidth) / 2;
         this.boardPositionHeight = resolutionHeight - boardHeight - 10;
 
-        connectFour = new ConnectFour(resolutionWidth, resolutionHeight);
+        connectFour = new ConnectFour(boardRows, boardColumns);
     }
 
     /**
@@ -84,15 +84,15 @@ public class Board {
      * @return Enum of the color corresponding to the player
      */
     private Disc.Color determineColor() {
-        if (connectFour.getPlayerTurn() == 1) {
+        if (connectFour.getCurrentPlayer() == ConnectFourBackend.Board.Player.ONE) {
             return Disc.Color.RED;
         } else {
             return Disc.Color.YELLOW;
         }
     }
 
-    protected int getPlayerTurn() {
-        return connectFour.getPlayerTurn();
+    protected ConnectFourBackend.Board.Player getPlayerTurn() {
+        return connectFour.getCurrentPlayer();
     }
 
     protected boolean hasWon() {
@@ -100,7 +100,7 @@ public class Board {
     }
 
     protected void restart() {
-        connectFour.initializeBoard();
+        connectFour.setBoardDimensions(boardWidth, boardHeight);
         initializeBoard();
     }
 }

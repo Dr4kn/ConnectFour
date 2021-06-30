@@ -6,9 +6,11 @@ package ConnectFourBackend;
  */
 public class ConnectFour implements ConnectFourInterface{
     private int winLength, width, height;
-    private int[][] board;
-    private int playerNumber = 1;
+
+    private Board board;
+    private Board.Player playerNumber = Board.Player.ONE;
     private boolean alreadyWon = false;
+
 
     /**
      * @param width int generates the width of the array
@@ -26,6 +28,9 @@ public class ConnectFour implements ConnectFourInterface{
      */
     public ConnectFour(int width, int height, int winLength) {
         this.winLength = winLength;
+        this.width = width;
+        this.height = height;
+        board = new Board(width, height, winLength);
         setBoardDimensions(width, height);
     }
 
@@ -35,30 +40,7 @@ public class ConnectFour implements ConnectFourInterface{
      *               automatically initializes the new Board
      */
     public void setBoardDimensions(int width, int height) {
-        if (width >= winLength && height >= winLength) {
-            this.width = width;
-            this.height = height;
-
-            initializeBoard();
-        }
-        else {
-            throw new IllegalArgumentException("board dimensions have to be at least as large as the win length");
-        }
-
-    }
-
-    /**
-     * creates a new matrix with the set width & height
-     * the empty board gets filled with zeros
-     */
-    public void initializeBoard() {
-        board = new int[width][height];
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                board[i][j] = 0;
-            }
-        }
+        board.setBoardDimensions(width, height);
     }
 
     /**
@@ -66,19 +48,20 @@ public class ConnectFour implements ConnectFourInterface{
      * @return the column position where the disc should be placed
      */
     public int move(int row) {
-        if (board[row][height - 1] == 0 && !alreadyWon) {
-            if (playerNumber == 1) {
-                playerNumber = 2;
+        if (board.getPlayerAtPosition(row, height - 1) == Board.Player.EMPTY && !alreadyWon) {
+
+            if (playerNumber == Board.Player.ONE) {
+                playerNumber = Board.Player.TWO;
             } else {
-                playerNumber = 1;
+                playerNumber = Board.Player.ONE;
             }
 
             for (int i = height - 1; i >= 0; i--) {
-                if (board[row][i] != 0) {
-                    board[row][i + 1] = getPlayerTurn();
+                if (board.getPlayerAtPosition(row, i) != Board.Player.EMPTY) {
+                    board.setPlayerAtPosition(row, i + 1, getCurrentPlayer());
                     return (i + 1);
                 } else if (i == 0) {
-                    board[row][0] = getPlayerTurn();
+                    board.setPlayerAtPosition(row, 0, getCurrentPlayer());
                 }
             }
         } else {
@@ -91,20 +74,21 @@ public class ConnectFour implements ConnectFourInterface{
      * @return true if player has won
      */
     public boolean hasWon() {
-        int player = getPlayerTurn();
+        Board.Player player = getCurrentPlayer();
         alreadyWon = true;
 
         // TODO remove both for loops and only check the last move
         // has to check all around the last placed one
         for (int column = 0; column < height; column++) { // bottom to top because discs always start from the bottom
             for (int row = 0; row < width; row++) { // left to right
-                if (board[row][column] != player) { // when the disc isn't from the current player skip it
+                if (board.getPlayerAtPosition(row, column) != player) { // when the disc isn't from the current player skip it
                     continue;
                 }
 
                 if (row + winLength - 1 < width) { // checks discs horizontal
                     for (int i = 1; true; i++) { // true == i < winLength
-                        if (player != board[row + i][column]) {
+                        if (player != board.getPlayerAtPosition(row + i, column)) {
+
                             break;
                         } else if (i == winLength - 1) {
                             return true;
@@ -114,7 +98,7 @@ public class ConnectFour implements ConnectFourInterface{
 
                 if (column + winLength - 1 < height) {
                     for (int i = 1; i < winLength; i++) { // checks discs vertical
-                        if (player != board[row][column + i]) {
+                        if (player != board.getPlayerAtPosition(row, column + i)) {
                             break;
                         } else if (i == winLength - 1) {
                             return true;
@@ -123,7 +107,7 @@ public class ConnectFour implements ConnectFourInterface{
 
                     if (row - (winLength - 1) >= 0) { // checks discs diagonal left
                         for (int i = 1; i < winLength; i++) {
-                            if (player != board[row - i][column + i]) {
+                            if (player != board.getPlayerAtPosition(row - 1, column + i)) {
                                 break;
                             } else if (i == winLength - 1) {
                                 return true;
@@ -133,7 +117,7 @@ public class ConnectFour implements ConnectFourInterface{
 
                     if (row + (winLength - 1) < width) { // checks discs diagonal right
                         for (int i = 1; i < winLength; i++) {
-                            if (player != board[row + i][column + i]) {
+                            if (player != board.getPlayerAtPosition(row + i, column + i)) {
                                 break;
                             } else if (i == winLength - 1) {
                                 return true;
@@ -143,23 +127,24 @@ public class ConnectFour implements ConnectFourInterface{
                 }
             }
         }
+
         alreadyWon = false;
         return false;
     }
 
-    public int getPlayerTurn() {
+    public Board.Player getCurrentPlayer() {
         return switch (playerNumber) {
-            case 1 -> 2;
-            case 2 -> 1;
-            default -> 0;
+            case ONE -> Board.Player.TWO;
+            case TWO -> Board.Player.ONE;
+            default -> Board.Player.EMPTY;
         };
     }
 
     /**
-     * @return board as 2d array with [row][height]
+     * @return board as 2d array with [row][height] filled with Player enums
      */
-    protected int[][] getBoard() {
-        return board;
+    protected Board.Player[][] getBoard() {
+        return board.getBoard();
     }
 
     /**
@@ -167,6 +152,7 @@ public class ConnectFour implements ConnectFourInterface{
      */
     public void setWinLength(int winLength) {
         this.winLength = winLength;
+        board.setWinLength(winLength);
     }
 }
 

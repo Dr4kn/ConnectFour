@@ -6,6 +6,7 @@ import processing.core.PApplet;
  * creates a single discs to be put into the board
  */
 public record Disc(PApplet pApplet, int posX, int posY, ConnectFourGUI.Disc.Color color) {
+
     /**
      * @param pApplet processing
      * @param posX    position in the processing grid it should be placed

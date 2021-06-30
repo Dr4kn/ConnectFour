@@ -30,7 +30,6 @@ public class Setup extends PApplet {
         surface.setTitle("Connect Four");
         board = new Board(this, 7, 6, resolutionWidth, resolutionHeight);
 
-        background(0);
         board.initializeBoard();
     }
 
@@ -49,13 +48,14 @@ public class Setup extends PApplet {
      */
     private void displayWinner() {
         textSize(50);
-        if (board.getPlayerTurn() == 1) {
+        if (board.getPlayerTurn() == ConnectFourBackend.Board.Player.ONE) {
             fill(102, 0, 0);
         } else {
             fill(153, 153, 0);
         }
         textAlign(CENTER);
-        text(String.format("Player %d has won", board.getPlayerTurn()), (resolutionWidth >> 1), 80);
+        text(String.format("Player %d has won", board.getPlayerTurn() == ConnectFourBackend.Board.Player.ONE ? 1 : 2),
+                (resolutionWidth >> 1), 80);
     }
 
     /**
