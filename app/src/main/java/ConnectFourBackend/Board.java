@@ -9,7 +9,7 @@ public class Board {
      * @param height height of the board
      * @param winLength number of discs needed to win
      */
-    public Board(int width, int height, int winLength) {
+    protected Board(int width, int height, int winLength) {
         this.winLength = winLength;
         this.width = width;
         this.height = height;
@@ -21,7 +21,7 @@ public class Board {
      * @param height has to be positive sets height of the Board
      *               automatically initializes the new Board
      */
-    public void setBoardDimensions(int width, int height) {
+    protected void setBoardDimensions(int width, int height) {
         if (width >= winLength && height >= winLength) {
             this.width = width;
             this.height = height;
@@ -35,7 +35,7 @@ public class Board {
      * creates a new matrix with the set width & height
      * the empty board gets filled with zeros
      */
-    public void initializeBoard() {
+    protected void initializeBoard() {
         this.board = new Player[width][height];
 
         for (int i = 0; i < width; i++) {
@@ -56,14 +56,14 @@ public class Board {
     /**
      * @return the current board
      */
-    public Player[][] getBoard() {
+    protected Player[][] getBoard() {
         return board;
     }
 
     /**
      * @param winLength the number of discs you need to win
      */
-    public void setWinLength(int winLength) {
+    protected void setWinLength(int winLength) {
         this.winLength = winLength;
     }
 

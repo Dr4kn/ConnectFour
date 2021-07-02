@@ -10,9 +10,9 @@ ConnectFourBackend/Board.java
 ConnectFourBackend/ConnectFour.java
  ConnectFourBackend.ConnectFour
  ConnectFourBackend.ConnectFour$1
+ConnectFourGUI/Board.java
+ ConnectFourGUI.Board
 ConnectFourGUI/Setup.java
  ConnectFourGUI.Setup
 ConnectFourGUI/App.java
  ConnectFourGUI.App
-ConnectFourGUI/Board.java
- ConnectFourGUI.Board

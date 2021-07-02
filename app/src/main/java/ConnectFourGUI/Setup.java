@@ -2,8 +2,7 @@ package ConnectFourGUI;
 import processing.core.PApplet;
 
 public class Setup extends PApplet {
-    private final int resolutionWidth;
-    private final int resolutionHeight;
+    private final int resolutionWidth, resolutionHeight;
     private Board board;
     private boolean nextGame, settings = false;
 
@@ -11,7 +10,7 @@ public class Setup extends PApplet {
      * @param resolutionWidth the resolution the processing windows should have (default 1080)
      * @param resolutionHeight the resolution the processing windows should have (default 720)
      */
-    public Setup(int resolutionWidth, int resolutionHeight) {
+    protected Setup(int resolutionWidth, int resolutionHeight) {
         this.resolutionWidth = resolutionWidth;
         this.resolutionHeight = resolutionHeight;
     }
@@ -61,32 +60,50 @@ public class Setup extends PApplet {
      * prints a dialog to play again and turn on a variable to start the game
      */
     private void nextGame() {
-        fill(0, 50, 255);
-        textSize(35);
-        textAlign(CENTER);
-        text("Do you want to play again?", (resolutionWidth >> 1), 140);
-        textSize(25);
-        text("press enter or S for Settings ", (resolutionWidth >> 1), 180);
+        displayText("Do you want to play again?", 140,
+                "press enter or < S > for Settings", 180);
         nextGame = true;
     }
 
+    /**
+     * enables a boolean with which you can change the board size with the arrow keys
+     */
     private void gameSettings() {
         board.initializeBoard();
-        fill(0, 50, 255);
-        textSize(35);
-        textAlign(CENTER);
-        text("to in-/decrease the board size\npress the arrow keys", (resolutionWidth >> 1), 80);
-        textSize(25);
-        text("press enter to start a game", (resolutionWidth >> 1), 180);
+        displayText("to in-/decrease the board size\npress the arrow keys", 80,
+                "press enter to start a game", 180);
         settings = true;
     }
 
+    /**
+     * @param firstText String of text to be displayed
+     * @param firstHeight Int Height of the first String
+     * @param secondText String of text to be displayed
+     * @param secondHeight Int Height of the second String
+     */
+    private void displayText(String firstText, int firstHeight, String secondText, int secondHeight) {
+        fill(0, 50, 255);
+        textSize(35);
+        textAlign(CENTER);
+        text(firstText, (resolutionWidth >> 1), firstHeight);
+        textSize(25);
+        text(secondText, (resolutionWidth >> 1), secondHeight);
+    }
+
+    /**
+     * gets triggered when the mouse is clicked
+     * it is from the processing library
+     */
     public void mouseClicked() {
         if (!settings) {
             board.placeDisc(mouseX, mouseY);
         }
     }
 
+    /**
+     * gets triggered when a key is pressed
+     * it is from the processing library
+     */
     public void keyPressed() {
         if (key == CODED && settings) {
             switch (keyCode) {
@@ -102,7 +119,6 @@ public class Setup extends PApplet {
                 settings = false;
                 board.restart();
             } else if (nextGame && (key == 's' || key == 'S')) {
-                background(0);
                 gameSettings();
             }
         }

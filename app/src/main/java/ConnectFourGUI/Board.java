@@ -62,24 +62,25 @@ public class Board {
                 int inBounds = (mouseX - boardPositionWidth - ((puffer - discSize) / 2)) / puffer;
 
                 if (inBounds < boardRows) {
-                    final int column = connectFour.move(inBounds);
-                    colorDiscs(inBounds, column, determineColor());
+                    colorDiscs(inBounds, connectFour.move(inBounds), determineColor());
                 }
             }
         }
     }
 
+    /**
+     * @param row the row the disc should be placed
+     * @param column the column the disc should be displaced
+     * @param color Red, Yellow or Black found more could be added in Disc.Color
+     */
     protected void colorDiscs(int row, int column, Disc.Color color) {
         /*
         sets the empty discs at the top left corner of the board with equal distance
         (puffer - discSize) / 2 is necessary, because those are already applied when two discs are next to each other
         if it wouldn't be done the discs at the top and left border would look to near to it
         */
-        int posX = boardPositionWidth + puffer / 2 + (puffer - discSize) / 2;
-        int posY = boardPositionHeight + boardHeight - (discSize / 2) - (puffer - discSize);
-
-        posX = posX + puffer * row;
-        posY = posY - puffer * column;
+        int posX = (boardPositionWidth + puffer / 2 + (puffer - discSize) / 2) + puffer * row;
+        int posY = (boardPositionHeight + boardHeight - (discSize / 2) - (puffer - discSize)) - puffer * column;
 
         new Disc(pApplet, posX, posY, color).draw();
     }
@@ -95,31 +96,51 @@ public class Board {
         }
     }
 
+    /**
+     * @return the last player that made a move
+     */
     protected ConnectFourBackend.Board.Player getPlayerTurn() {
         return connectFour.getCurrentPlayer();
     }
 
+    /**
+     * @return Enum of Board.Player of the player that has won the game
+     */
     protected boolean hasWon() {
         return connectFour.hasWon();
     }
 
+    /**
+     * increases the board row size by 1
+     */
     protected void increaseBoardRows() {
         boardRows += 1;
     }
 
+    /**
+     * decreases the board row size by 1
+     */
     protected void decreaseBoardRows() {
         boardRows -= 1;
     }
 
+    /**
+     * increases the board column size by 1
+     */
     protected void increaseBoardColumns() {
         boardColumns += 1;
     }
 
+    /**
+     * decreases the board column size by 1
+     */
     protected void decreaseBoardColumns() {
         boardColumns -= 1;
     }
 
-
+    /**
+     * initializes a new GUI Board and makes a backend board with the current rows and columns
+     */
     protected void restart() {
         connectFour.setBoardDimensions(boardRows, boardColumns);
         initializeBoard();

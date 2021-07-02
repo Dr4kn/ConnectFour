@@ -146,7 +146,7 @@ public class ConnectFour implements ConnectFourInterface{
     /**
      * @return board as 2d array with [row][height] filled with Player enums
      */
-    protected Board.Player[][] getBoard() {
+    public Board.Player[][] getBoard() {
         return board.getBoard();
     }
 
