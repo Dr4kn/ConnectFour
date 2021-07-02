@@ -9,7 +9,7 @@ public class ConnectFour implements ConnectFourInterface{
     private int width, height;
 
     private final Board board;
-    private Board.Player playerNumber = Board.Player.ONE;
+    private Player playerNumber = Player.ONE;
     private boolean alreadyWon = false;
 
 
@@ -51,16 +51,16 @@ public class ConnectFour implements ConnectFourInterface{
      * @return the column position where the disc should be placed
      */
     public int move(int row) {
-        if (board.getPlayerAtPosition(row, height - 1) == Board.Player.EMPTY && !alreadyWon) {
+        if (board.getPlayerAtPosition(row, height - 1) == Player.EMPTY && !alreadyWon) {
 
-            if (playerNumber == Board.Player.ONE) {
-                playerNumber = Board.Player.TWO;
+            if (playerNumber == Player.ONE) {
+                playerNumber = Player.TWO;
             } else {
-                playerNumber = Board.Player.ONE;
+                playerNumber = Player.ONE;
             }
 
             for (int i = height - 1; i >= 0; i--) {
-                if (board.getPlayerAtPosition(row, i) != Board.Player.EMPTY) {
+                if (board.getPlayerAtPosition(row, i) != Player.EMPTY) {
                     board.setPlayerAtPosition(row, i + 1, getCurrentPlayer());
                     return (i + 1);
                 } else if (i == 0) {
@@ -77,7 +77,7 @@ public class ConnectFour implements ConnectFourInterface{
      * @return true if player has won
      */
     public boolean hasWon() {
-        Board.Player player = getCurrentPlayer();
+        Player player = getCurrentPlayer();
         alreadyWon = true;
 
         // TODO remove both for loops and only check the last move
@@ -130,23 +130,22 @@ public class ConnectFour implements ConnectFourInterface{
                 }
             }
         }
-
         alreadyWon = false;
         return false;
     }
 
-    public Board.Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return switch (playerNumber) {
-            case ONE -> Board.Player.TWO;
-            case TWO -> Board.Player.ONE;
-            default -> Board.Player.EMPTY;
+            case ONE -> Player.TWO;
+            case TWO -> Player.ONE;
+            default -> Player.EMPTY;
         };
     }
 
     /**
      * @return board as 2d array with [row][height] filled with Player enums
      */
-    public Board.Player[][] getBoard() {
+    public Player[][] getBoard() {
         return board.getBoard();
     }
 

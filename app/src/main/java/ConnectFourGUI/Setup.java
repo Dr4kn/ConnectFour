@@ -46,13 +46,13 @@ public class Setup extends PApplet {
      */
     private void displayWinner() {
         textSize(50);
-        if (board.getPlayerTurn() == ConnectFourBackend.Board.Player.ONE) {
+        if (board.getPlayerTurn() == ConnectFourBackend.Player.ONE) {
             fill(102, 0, 0);
         } else {
             fill(153, 153, 0);
         }
         textAlign(CENTER);
-        text(String.format("Player %d has won", board.getPlayerTurn() == ConnectFourBackend.Board.Player.ONE ? 1 : 2),
+        text(String.format("Player %d has won", board.getPlayerTurn() == ConnectFourBackend.Player.ONE ? 1 : 2),
                 (resolutionWidth >> 1), 80);
     }
 

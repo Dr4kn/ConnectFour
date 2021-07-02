@@ -89,7 +89,7 @@ public class Board {
      * @return Enum of the color corresponding to the player
      */
     private Disc.Color determineColor() {
-        if (connectFour.getCurrentPlayer() == ConnectFourBackend.Board.Player.ONE) {
+        if (connectFour.getCurrentPlayer() == ConnectFourBackend.Player.ONE) {
             return Disc.Color.RED;
         } else {
             return Disc.Color.YELLOW;
@@ -99,7 +99,7 @@ public class Board {
     /**
      * @return the last player that made a move
      */
-    protected ConnectFourBackend.Board.Player getPlayerTurn() {
+    protected ConnectFourBackend.Player getPlayerTurn() {
         return connectFour.getCurrentPlayer();
     }
 

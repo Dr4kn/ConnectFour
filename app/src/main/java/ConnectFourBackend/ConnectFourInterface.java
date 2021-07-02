@@ -7,7 +7,7 @@ public interface ConnectFourInterface {
 
     boolean hasWon();
 
-    Board.Player getCurrentPlayer();
+    Player getCurrentPlayer();
 
     void setWinLength(int winLength);
 }

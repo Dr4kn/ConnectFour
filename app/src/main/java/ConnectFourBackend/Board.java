@@ -66,10 +66,4 @@ public class Board {
     protected void setWinLength(int winLength) {
         this.winLength = winLength;
     }
-
-    public enum Player {
-        EMPTY,
-        ONE,
-        TWO
-    }
 }
