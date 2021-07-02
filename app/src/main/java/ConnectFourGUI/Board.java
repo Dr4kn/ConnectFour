@@ -7,7 +7,8 @@ import processing.core.PApplet;
  */
 public class Board {
     private final PApplet pApplet;
-    private final int boardRows, boardColumns, boardWidth, boardHeight, boardPositionWidth, boardPositionHeight;
+    private int boardRows, boardColumns, boardWidth, boardHeight, boardPositionWidth, boardPositionHeight;
+    private final int resolutionWidth, resolutionHeight;
     private final int discSize = 50;
     private final int puffer = discSize + 10;
     private final ConnectFour connectFour;
@@ -23,12 +24,10 @@ public class Board {
         this.pApplet = pApplet;
         this.boardRows = boardRows;
         this.boardColumns = boardColumns;
+        this.resolutionWidth = resolutionWidth;
+        this.resolutionHeight = resolutionHeight;
 
-        this.boardWidth = boardRows * puffer + (puffer - discSize);
-        this.boardHeight = boardColumns * puffer + (puffer - discSize);
-        this.boardPositionWidth = (resolutionWidth - boardWidth) / 2;
-        this.boardPositionHeight = resolutionHeight - boardHeight - 10;
-
+        initializeBoard();
         connectFour = new ConnectFour(boardRows, boardColumns);
     }
 
@@ -36,6 +35,11 @@ public class Board {
      * initializes the board with empty looking spaces for discs
      */
     protected void initializeBoard() {
+        this.boardWidth = boardRows * puffer + (puffer - discSize);
+        this.boardHeight = boardColumns * puffer + (puffer - discSize);
+        this.boardPositionWidth = (resolutionWidth - boardWidth) / 2;
+        this.boardPositionHeight = resolutionHeight - boardHeight - 10;
+
         pApplet.background(0);
         pApplet.fill(0, 50, 255);
         pApplet.rect(boardPositionWidth, boardPositionHeight, boardWidth, boardHeight, 7);
@@ -99,8 +103,25 @@ public class Board {
         return connectFour.hasWon();
     }
 
+    protected void increaseBoardRows() {
+        boardRows += 1;
+    }
+
+    protected void decreaseBoardRows() {
+        boardRows -= 1;
+    }
+
+    protected void increaseBoardColumns() {
+        boardColumns += 1;
+    }
+
+    protected void decreaseBoardColumns() {
+        boardColumns -= 1;
+    }
+
+
     protected void restart() {
-        connectFour.setBoardDimensions(boardWidth, boardHeight);
+        connectFour.setBoardDimensions(boardRows, boardColumns);
         initializeBoard();
     }
 }

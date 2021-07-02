@@ -5,7 +5,7 @@ public class Setup extends PApplet {
     private final int resolutionWidth;
     private final int resolutionHeight;
     private Board board;
-    private boolean nextGame = false;
+    private boolean nextGame, settings = false;
 
     /**
      * @param resolutionWidth the resolution the processing windows should have (default 1080)
@@ -29,15 +29,14 @@ public class Setup extends PApplet {
     public void setup() {
         surface.setTitle("Connect Four");
         board = new Board(this, 7, 6, resolutionWidth, resolutionHeight);
-
-        board.initializeBoard();
+        gameSettings();
     }
 
     /**
      * draw method from processing that gets executed every frame
      */
     public void draw() {
-        if (board.hasWon()) {
+        if (board.hasWon() && !nextGame) {
             displayWinner();
             nextGame();
         }
@@ -67,20 +66,44 @@ public class Setup extends PApplet {
         textAlign(CENTER);
         text("Do you want to play again?", (resolutionWidth >> 1), 140);
         textSize(25);
-        text("(press enter)", (resolutionWidth >> 1), 180);
+        text("press enter or S for Settings ", (resolutionWidth >> 1), 180);
         nextGame = true;
     }
 
+    private void gameSettings() {
+        board.initializeBoard();
+        fill(0, 50, 255);
+        textSize(35);
+        textAlign(CENTER);
+        text("to in-/decrease the board size\npress the arrow keys", (resolutionWidth >> 1), 80);
+        textSize(25);
+        text("press enter to start a game", (resolutionWidth >> 1), 180);
+        settings = true;
+    }
+
     public void mouseClicked() {
-        board.placeDisc(mouseX, mouseY);
+        if (!settings) {
+            board.placeDisc(mouseX, mouseY);
+        }
     }
 
     public void keyPressed() {
-        if (nextGame) {
-            if (key == ENTER || key == RETURN) {
+        if (key == CODED && settings) {
+            switch (keyCode) {
+                case LEFT -> board.decreaseBoardRows();
+                case RIGHT -> board.increaseBoardRows();
+                case UP -> board.increaseBoardColumns();
+                case DOWN -> board.decreaseBoardColumns();
+            }
+            gameSettings();
+        } else {
+            if ((key == ENTER || key == RETURN) && (nextGame || settings)) {
                 nextGame = false;
-                background(0);
+                settings = false;
                 board.restart();
+            } else if (nextGame && (key == 's' || key == 'S')) {
+                background(0);
+                gameSettings();
             }
         }
     }

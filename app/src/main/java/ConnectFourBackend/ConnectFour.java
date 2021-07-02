@@ -5,9 +5,10 @@ package ConnectFourBackend;
  * also includes the logic
  */
 public class ConnectFour implements ConnectFourInterface{
-    private int winLength, width, height;
+    private int winLength;
+    private int width, height;
 
-    private Board board;
+    private final Board board;
     private Board.Player playerNumber = Board.Player.ONE;
     private boolean alreadyWon = false;
 
@@ -40,6 +41,8 @@ public class ConnectFour implements ConnectFourInterface{
      *               automatically initializes the new Board
      */
     public void setBoardDimensions(int width, int height) {
+        this.width = width;
+        this.height = height;
         board.setBoardDimensions(width, height);
     }
 
