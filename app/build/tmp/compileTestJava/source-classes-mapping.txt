@@ -1,2 +1,0 @@
-ConnectFourBackend/ConnectFourTest.java
- ConnectFourBackend.ConnectFourTest
