@@ -7,10 +7,10 @@ package ConnectFourBackend;
 public class ConnectFour implements ConnectFourInterface{
     private int winLength;
     private int width, height;
+    private boolean alreadyWon = false;
 
     private final Board board;
     private Player playerNumber = Player.ONE;
-    private boolean alreadyWon = false;
 
 
     /**
@@ -51,6 +51,10 @@ public class ConnectFour implements ConnectFourInterface{
      * @return the column position where the disc should be placed
      */
     public int move(int row) {
+        if (row > width) {
+            throw new IllegalArgumentException("The given row is to large for the board");
+        }
+
         if (board.getPlayerAtPosition(row, height - 1) == Player.EMPTY && !alreadyWon) {
 
             if (playerNumber == Player.ONE) {
@@ -153,8 +157,18 @@ public class ConnectFour implements ConnectFourInterface{
      * @param winLength int the number of discs needed to win
      */
     public void setWinLength(int winLength) {
+        if (1 >= winLength || winLength > height || winLength > width) {
+            throw new IllegalArgumentException("board dimensions have to be at least as large as the win length");
+        }
         this.winLength = winLength;
         board.setWinLength(winLength);
+    }
+
+    /**
+     * @return the number of discs to have next to each other to win
+     */
+    public int getWinLength() {
+        return this.winLength;
     }
 }
 
