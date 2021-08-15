@@ -45,10 +45,20 @@ public class Board {
         }
     }
 
+    /**
+     * @param row int of board row. bottom to top
+     * @param column int of board column. left to right
+     * @return Player Enum at that position
+     */
     protected Player getPlayerAtPosition(int row, int column) {
         return board[row][column];
     }
 
+    /**
+     * @param row int of board row. bottom to top
+     * @param column int of board column. left to right
+     * @param player Player enum to set at that position
+     */
     protected void setPlayerAtPosition(int row, int column, Player player) {
         board[row][column] = player;
     }

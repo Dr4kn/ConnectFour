@@ -1,7 +1,10 @@
 package ConnectFourGUI;
 import processing.core.PApplet;
 
-public class Setup extends PApplet {
+/**
+ * Sets up the Game and controls what at which time should be displayed
+ */
+public class Controller extends PApplet {
     private final int resolutionWidth, resolutionHeight;
     private Board board;
     private boolean nextGame, settings = false;
@@ -10,7 +13,7 @@ public class Setup extends PApplet {
      * @param resolutionWidth the resolution the processing windows should have (default 1080)
      * @param resolutionHeight the resolution the processing windows should have (default 720)
      */
-    protected Setup(int resolutionWidth, int resolutionHeight) {
+    protected Controller(int resolutionWidth, int resolutionHeight) {
         this.resolutionWidth = resolutionWidth;
         this.resolutionHeight = resolutionHeight;
     }

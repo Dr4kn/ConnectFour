@@ -14,7 +14,7 @@ public class App extends PApplet {
      * @param args not used
      */
     public static void main(String[] args) {
-         Setup draw = new Setup(1080, 720);
+         Controller draw = new Controller(1080, 720);
          PApplet.runSketch(new String[]{""}, draw);
     }
 }

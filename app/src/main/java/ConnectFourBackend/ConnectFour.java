@@ -4,7 +4,7 @@ package ConnectFourBackend;
  * ConnectFour playing board
  * also includes the logic
  */
-public class ConnectFour implements ConnectFourInterface{
+public class ConnectFour {
     private int winLength;
     private int width, height;
     private boolean alreadyWon = false;
@@ -138,6 +138,9 @@ public class ConnectFour implements ConnectFourInterface{
         return false;
     }
 
+    /**
+     * @return Player Enum of the Player that has last set a Disc
+     */
     public Player getCurrentPlayer() {
         return switch (playerNumber) {
             case ONE -> Player.TWO;
